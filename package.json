@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server/start"
+    "start": "node ./server/start",
+    "live-log": "heroku logs -a note-book-server-00"
   },
   "type": "module",
   "engines": {
