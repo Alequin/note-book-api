@@ -1,0 +1,26 @@
+{
+  "name": "note-book-server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/start"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alequin/note-book-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alequin/note-book-server/issues"
+  },
+  "homepage": "https://github.com/Alequin/note-book-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
