@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/start",
+    "build-client": "node ./scripts/build-client",
     "live-log": "heroku logs -a note-book-server-00",
     "live-config": "heroku config -a note-book-server-00"
   },
