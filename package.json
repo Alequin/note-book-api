@@ -6,6 +6,7 @@
     "test": "jest",
     "start": "babel-node ./server/start",
     "build-client": "babel-node ./scripts/build-client",
+    "build-local": "heroku-local",
     "live-log": "heroku logs -a note-book-server-00",
     "live-config": "heroku config -a note-book-server-00"
   },
