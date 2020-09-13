@@ -1,9 +1,8 @@
 import express from "express";
 import { CURRENT_ENVIRONMENT } from "./config/environments.js";
 import { PORT } from "./config/port.js";
-import { clientDirectory } from "../utils/directories.js";
+import { clientDirectory } from "./utils/directories.js";
 
-const CLIENT_BUILD_DIRECTORY = `${clientDirectory}/build`;
 const app = express();
 
 app.get("/_health", (_req, res) => {
@@ -13,10 +12,10 @@ app.get("/_health", (_req, res) => {
     `);
 });
 
-app.use(express.static(`${CLIENT_BUILD_DIRECTORY}`));
+app.use(express.static(`${clientDirectory}`));
 
 app.get("/", (_req, res) => {
-  res.sendFile(`${CLIENT_BUILD_DIRECTORY}/index.html`);
+  res.sendFile(`${clientDirectory}/index.html`);
 });
 
 app.listen(PORT, () => {
