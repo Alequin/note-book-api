@@ -1,6 +1,6 @@
 import fs from "fs";
 import { consoleCommand } from "./utils/console-command.js";
-import { rootDirectory } from "../utils/root-directory.js";
+import { clientDirectory } from "../utils/directories.js";
 
 const main = async () => {
   console.log("Start: build client");
@@ -15,7 +15,7 @@ const main = async () => {
 };
 
 const shouldInstallClientNodeModules = () =>
-  !fs.existsSync(`${rootDirectory}/client/node_modules`);
+  !fs.existsSync(`${clientDirectory}/node_modules`);
 
 const installClientNodeModules = async () =>
   consoleCommand(`
