@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    image: "postgres" 
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=note-book-db
+    volumes:
+      - note-book-docker-database-volume:/var/lib/postgresql/data/ 
+volumes:
+  note-book-docker-database-volume:
