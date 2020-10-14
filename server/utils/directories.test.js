@@ -1,4 +1,3 @@
-import fs from "fs";
 import { clientDirectory } from "./directories.js";
 
 describe("rootDirectory", () => {

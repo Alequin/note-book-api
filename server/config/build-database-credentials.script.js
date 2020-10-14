@@ -1,4 +1,5 @@
 import fs from "fs";
+import { ENVIRONMENTS_OPTIONS } from "./environments";
 
 const main = () => {
   console.log("Start: Build database credentials");
@@ -7,11 +8,27 @@ const main = () => {
   const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 
   const config = {
-    user: DB_USERNAME || "user",
-    host: DB_HOST || "localhost",
-    database: DB_NAME || "note-book-db",
-    password: DB_PASSWORD || "password",
-    port: DB_PORT || 5433,
+    [ENVIRONMENTS_OPTIONS.development]: {
+      user: "user",
+      host: "localhost",
+      database: "note-book-db",
+      password: "password",
+      port: 5433,
+    },
+    [ENVIRONMENTS_OPTIONS.test]: {
+      user: "user",
+      host: "localhost",
+      database: "test-note-book-db",
+      password: "password",
+      port: 5433,
+    },
+    [ENVIRONMENTS_OPTIONS.production]: {
+      user: DB_USERNAME,
+      host: DB_HOST,
+      database: DB_NAME,
+      password: DB_PASSWORD,
+      port: DB_PORT,
+    },
   };
 
   fs.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(config));

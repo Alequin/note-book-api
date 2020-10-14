@@ -1,11 +1,15 @@
-const ENVIRONMENTS_OPTIONS = {
-  PRODUCTION: "production",
-  DEVELOPMENT: "development",
+export const ENVIRONMENTS_OPTIONS = {
+  production: "production",
+  development: "development",
+  test: "test",
 };
 
 export const CURRENT_ENVIRONMENT =
   ENVIRONMENTS_OPTIONS[process.env.ENVIRONMENT] ||
-  ENVIRONMENTS_OPTIONS.DEVELOPMENT;
+  ENVIRONMENTS_OPTIONS.development;
 
-export const isProduction = () =>
-  CURRENT_ENVIRONMENT === ENVIRONMENTS_OPTIONS.PRODUCTION;
+export const isProductionEnv = () =>
+  CURRENT_ENVIRONMENT === ENVIRONMENTS_OPTIONS.production;
+
+export const isTestEnv = () =>
+  CURRENT_ENVIRONMENT === ENVIRONMENTS_OPTIONS.test;

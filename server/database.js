@@ -1,7 +1,8 @@
 import { Pool } from "pg";
+import { CURRENT_ENVIRONMENT } from "./config/environments";
 import databaseCredentials from "./config/database-credentials.json";
 
-const pool = new Pool(databaseCredentials);
+const pool = new Pool(databaseCredentials[CURRENT_ENVIRONMENT]);
 
 export const database = (query) =>
   new Promise((resolve, reject) => {

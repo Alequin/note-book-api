@@ -18,8 +18,10 @@
   },
   "scripts": {
     "setup": "npm run build-database-config",
-    "local-database-up": "docker-compose  --file ./local-database-docker-compose.yml --project-name local-note-book-database up --detach ",
+    "local-database-up": "docker-compose  --file ./docker-compose/local-database-docker-compose.yml --project-name local-note-book-database up --detach ",
     "local-database-down": "docker container stop $(docker container ls -q --filter name=local-note-book-database*)",
+    "test-database-up": "docker-compose  --file ./docker-compose/test-database-docker-compose.yml --project-name test-note-book-database up --detach ",
+    "test-database-down": "docker container stop $(docker container ls -q --filter name=test-note-book-database*)",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "npm run test-client-without-watching && npm run test-server",
