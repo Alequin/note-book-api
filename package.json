@@ -29,13 +29,14 @@
     "test-client": "react-scripts test",
     "test-server": "jest --watch ./server/*",
     "eject": "react-scripts eject",
-    "start-server": "babel-node ./server/start",
+    "server": "babel-node ./server/start",
     "local-database": "docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres",
     "build-database-config": "babel-node ./server/config/build-database-credentials.script.js",
     "build-local": "heroku local",
     "live-log": "heroku logs -a note-book-server-00",
     "live-config": "heroku config -a note-book-server-00"
   },
+  "proxy": "http://127.0.0.1:3010",
   "eslintConfig": {
     "extends": "react-app"
   },

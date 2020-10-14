@@ -1,6 +1,8 @@
 import fs from "fs";
 import { ENVIRONMENTS_OPTIONS } from "./environments";
 
+// TODO: do the test and development dbs need to be on different ports?
+
 const main = () => {
   console.log("Start: Build database credentials");
 
@@ -13,7 +15,7 @@ const main = () => {
       host: "localhost",
       database: "note-book-db",
       password: "password",
-      port: 5433,
+      port: 5434,
     },
     [ENVIRONMENTS_OPTIONS.test]: {
       user: "user",

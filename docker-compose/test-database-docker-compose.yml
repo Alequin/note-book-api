@@ -7,8 +7,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test-note-book-db
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
-      - note-book-docker-database-volume:/var/lib/postgresql/data/ 
+      - test-note-book-docker-database-volume:/var/lib/postgresql/data/ 
 volumes:
   note-book-docker-database-volume:
