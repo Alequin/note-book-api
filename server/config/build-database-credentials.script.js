@@ -15,7 +15,7 @@ const main = () => {
       host: "localhost",
       database: "note-book-db",
       password: "password",
-      port: 5434,
+      port: 5433,
       driver: "pg",
     },
     [ENVIRONMENTS_OPTIONS.test]: {
@@ -23,7 +23,7 @@ const main = () => {
       host: "localhost",
       database: "test-note-book-db",
       password: "password",
-      port: 5433,
+      port: 5434,
       driver: "pg",
     },
     [ENVIRONMENTS_OPTIONS.production]: {

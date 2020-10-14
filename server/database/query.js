@@ -4,7 +4,9 @@ import databaseCredentials from "../config/database-credentials.json";
 
 const pool = new Pool(databaseCredentials[CURRENT_ENVIRONMENT]);
 
-export const query = (query) =>
+export const query = (query, args) =>
   new Promise((resolve, reject) => {
-    pool.query(query, (error, res) => (error ? reject(error) : resolve(res)));
+    pool.query(query, args, (error, res) =>
+      error ? reject(error) : resolve(res),
+    );
   });
