@@ -7,6 +7,6 @@ const pool = new Pool(databaseCredentials[CURRENT_ENVIRONMENT]);
 export const query = (query, args) =>
   new Promise((resolve, reject) => {
     pool.query(query, args, (error, res) =>
-      error ? reject(error) : resolve(res),
+      error ? reject(error) : resolve(res.rows),
     );
   });

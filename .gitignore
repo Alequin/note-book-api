@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+/build/*
+!/build/index.html
 
 # misc
 .DS_Store
@@ -22,5 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Live config
+# database config
 database-credentials.json
