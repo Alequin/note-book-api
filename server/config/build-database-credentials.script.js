@@ -16,6 +16,7 @@ const main = () => {
       database: "note-book-db",
       password: "password",
       port: 5434,
+      driver: "pg",
     },
     [ENVIRONMENTS_OPTIONS.test]: {
       user: "user",
@@ -23,6 +24,7 @@ const main = () => {
       database: "test-note-book-db",
       password: "password",
       port: 5433,
+      driver: "pg",
     },
     [ENVIRONMENTS_OPTIONS.production]: {
       user: DB_USERNAME,
@@ -30,6 +32,7 @@ const main = () => {
       database: DB_NAME,
       password: DB_PASSWORD,
       port: DB_PORT,
+      driver: "pg",
     },
   };
 
