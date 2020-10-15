@@ -22,8 +22,8 @@
     "supertest": "^5.0.0"
   },
   "scripts": {
-    "setup": "npm run build-database-config",
-    "local-database-up": "docker-compose  --file ./docker-compose/local-database-docker-compose.yml --project-name local-note-book-database up --detach ",
+    "setup": "npm run build-database-config && npm run local-database-up && npm run create-test-database",
+    "local-database-up": "docker-compose  --file ./docker-compose/local-database-docker-compose.yml --project-name local-note-book-database up --detach",
     "local-database-down": "docker container stop $(docker container ls -q --filter name=local-note-book-database*)",
     "create-migration": "db-migrate --config  ./server/config/database-credentials.json --migrations-dir ./server/database/migrations create",
     "db-dev-up": "db-migrate up --config  ./server/config/database-credentials.json --migrations-dir ./server/database/migrations --env development",
@@ -44,7 +44,8 @@
     "build-database-config": "babel-node ./server/config/build-database-credentials.script.js",
     "build-local": "heroku local",
     "live-log": "heroku logs -a note-book-server-00",
-    "live-config": "heroku config -a note-book-server-00"
+    "live-config": "heroku config -a note-book-server-00",
+    "create-test-database": "babel-node ./server/database/create-test-database.script.js"
   },
   "proxy": "http://127.0.0.1:3010",
   "eslintConfig": {

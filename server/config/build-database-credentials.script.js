@@ -19,11 +19,11 @@ const main = () => {
   const config = {
     [ENVIRONMENTS_OPTIONS.development]: {
       ...localConfig,
-      database: "note-book-db",
+      database: "note_book_db",
     },
     [ENVIRONMENTS_OPTIONS.test]: {
       ...localConfig,
-      database: "test-note-book-db",
+      database: "test_note_book_db",
     },
     [ENVIRONMENTS_OPTIONS.production]: {
       user: DB_USERNAME,

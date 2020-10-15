@@ -5,10 +5,11 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=note-book-db
+      - POSTGRES_DB=note_book_db
     ports:
       - "5433:5432"
     volumes:
       - note-book-docker-database-volume:/var/lib/postgresql/data/ 
+      
 volumes:
   note-book-docker-database-volume:
