@@ -10,15 +10,21 @@ const main = () => {
   const localConfig = {
     user: "user",
     host: "localhost",
-    database: "note-book-db",
+    database: null,
     password: "password",
     port: 5433,
     driver: "pg",
   };
 
   const config = {
-    [ENVIRONMENTS_OPTIONS.development]: localConfig,
-    [ENVIRONMENTS_OPTIONS.test]: localConfig,
+    [ENVIRONMENTS_OPTIONS.development]: {
+      ...localConfig,
+      database: "note-book-db",
+    },
+    [ENVIRONMENTS_OPTIONS.test]: {
+      ...localConfig,
+      database: "test-note-book-db",
+    },
     [ENVIRONMENTS_OPTIONS.production]: {
       user: DB_USERNAME,
       host: DB_HOST,

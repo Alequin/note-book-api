@@ -2,10 +2,10 @@ import request from "supertest";
 import app from "./start-server";
 import { apiRoutes } from "./api-routes";
 import { readFlashCards } from "./database/read-flash-cards";
-import { thing } from "./database/reset-test-database-after-each";
+import { resetTestDatabaseAfterEach } from "./database/reset-test-database-after-each";
 
 describe("Server", () => {
-  thing();
+  resetTestDatabaseAfterEach();
 
   it("Returns the react app from the home route", async () => {
     const { text, statusCode } = await request(app).get(apiRoutes.home);
