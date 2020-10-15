@@ -1,6 +1,3 @@
-// Import resolves error "ReferenceError: regeneratorRuntime is not defined". See https://github.com/babel/babel/issues/9849#issuecomment-487040428
-import regeneratorRuntime from "regenerator-runtime";
-
 import express from "express";
 import { PORT } from "./config/port.js";
 import { clientDirectory } from "./utils/directories.js";
