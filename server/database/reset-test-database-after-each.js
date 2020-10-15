@@ -1,12 +1,8 @@
-import DBMigrate from "db-migrate";
-import path from "path";
-import { CURRENT_ENVIRONMENT } from "../config/environments";
 import { query } from "./query";
+import { dbMigrations } from "./db-migrations";
 
 export const resetTestDatabaseAfterEach = () => {
-  beforeAll(async () => {
-    await getMigrationInstance().up();
-  });
+  beforeAll(async () => dbMigrations().up());
 
   const tablesToIgnore = ["migrations"];
   afterEach(async () => {
@@ -27,19 +23,5 @@ export const resetTestDatabaseAfterEach = () => {
     );
   });
 
-  afterAll(async () => {
-    await getMigrationInstance().reset();
-  });
-};
-
-const getMigrationInstance = () => {
-  const instance = DBMigrate.getInstance(true, {
-    config: path.resolve(__dirname, "../config/database-credentials.json"),
-    env: CURRENT_ENVIRONMENT,
-    cmdOptions: {
-      "migrations-dir": path.resolve(__dirname, "./migrations"),
-    },
-  });
-  instance.silence(true);
-  return instance;
+  afterAll(async () => dbMigrations().reset());
 };

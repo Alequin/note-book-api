@@ -2,16 +2,22 @@
 
 ---
 
+## Setup
+
+Run `npm run setup-local` build required files and setup the local database 
+
+---
+
 ## Database
 
 **Type**: PSQL (latest)
 
 ### Local Database
 
-The local database is exposed on port `5433`
+The local database is exposed on port `5433`. It will be created and started in docker by the setup-local command but can be re-started with the following commands
 
 **Start db locally in docker**: `npm run local-database-up` 
-**Tear down local docker db**: `npm run local-database-up` 
+**Tear down local docker db**: `npm run local-database-down` 
 
 ---
 
@@ -20,10 +26,7 @@ The local database is exposed on port `5433`
 Tests are run using Jest
 There are client tests and server tests
 
-### Test database 
-
-**Start test db in docker**: `npm run test-database-up` 
-**Tear down test docker db**: `npm run test-database-up` 
+_You will need to have already run the setup-local script before runing any server tests_
 
 ### Run tests
 
