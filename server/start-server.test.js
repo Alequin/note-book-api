@@ -112,5 +112,25 @@ describe("Server", () => {
         tags: ["1"],
       });
     });
+
+    it("Errors with a status of 500 if there are any errors while reading flash cards", async () => {
+      jest.spyOn(databaseCommands, "readFlashCards").mockImplementation(() => {
+        throw new Error("mock error to create a 500 status");
+      });
+      jest.spyOn(console, "error").mockImplementation(() => {});
+
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+
+      const { statusCode } = await request(app).get(apiRoutes.getFlashCards);
+
+      expect(statusCode).toBe(500);
+      expect(console.error).toHaveBeenCalledWith(
+        "Unable to read flash cards / Error: mock error to create a 500 status",
+      );
+    });
   });
 });
