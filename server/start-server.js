@@ -2,7 +2,13 @@ import express from "express";
 import { PORT } from "./config/port.js";
 import { clientDirectory } from "./utils/directories.js";
 
-import { apiRoutes, home, health, storeFlashCard } from "./api-routes";
+import {
+  apiRoutes,
+  home,
+  health,
+  storeFlashCard,
+  getFlashCards,
+} from "./api-routes";
 
 const bodyParser = require("body-parser");
 
@@ -16,6 +22,7 @@ app.use(express.static(`${clientDirectory}`));
 app.get(apiRoutes.home, home);
 app.get(apiRoutes.health, health);
 app.post(apiRoutes.storeFlashCard, storeFlashCard);
+app.get(apiRoutes.getFlashCards, getFlashCards);
 
 if (require.main === module) {
   app.listen(PORT, () => {

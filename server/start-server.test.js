@@ -9,7 +9,7 @@ describe("Server", () => {
   resetTestDatabaseAfterEach();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   it("Returns the react app from the home route", async () => {
@@ -87,6 +87,30 @@ describe("Server", () => {
 
       const storedFlashCards = await databaseCommands.readFlashCards();
       expect(storedFlashCards).toHaveLength(0);
+    });
+  });
+
+  describe("reading flash cards", () => {
+    it("Reads stored flash cards when a GET request is sent to the flash card endpoint", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        apiRoutes.getFlashCards,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toHaveLength(1);
+      expect(body[0]).toEqual({
+        id: 1,
+        question_html: "question",
+        answer_html: "answer",
+        tags: ["1"],
+      });
     });
   });
 });
