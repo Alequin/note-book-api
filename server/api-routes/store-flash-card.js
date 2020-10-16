@@ -1,4 +1,4 @@
-import { insertFlashCard } from "../database/insert-flash-card";
+import { databaseCommands } from "../database/commands";
 
 export const storeFlashCard = async (req, res) => {
   const { question, answer, tags } = req.body;
@@ -10,7 +10,11 @@ export const storeFlashCard = async (req, res) => {
       );
 
   try {
-    await insertFlashCard({ questionHtml: question, answerHtml: answer, tags });
+    await databaseCommands.insertFlashCard({
+      questionHtml: question,
+      answerHtml: answer,
+      tags,
+    });
     res.sendStatus(200);
   } catch (error) {
     console.error(`Unable to store flash card / Error: ${error.message}`);

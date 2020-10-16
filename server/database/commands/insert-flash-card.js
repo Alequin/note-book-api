@@ -1,4 +1,4 @@
-import { query } from "./query";
+import { query } from "../query";
 
 export const insertFlashCard = async ({ questionHtml, answerHtml, tags }) =>
   query(
