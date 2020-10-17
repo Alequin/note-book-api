@@ -2,7 +2,11 @@ import { query } from "./query";
 import { dbMigrations } from "./db-migrations";
 
 export const resetTestDatabaseAfterEach = () => {
-  beforeAll(async () => dbMigrations().up());
+  beforeAll(async () => {
+    const migrationInstance = dbMigrations();
+    await migrationInstance.reset();
+    await migrationInstance.up();
+  });
 
   const tablesToIgnore = ["migrations"];
   afterEach(async () => {

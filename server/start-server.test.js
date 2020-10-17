@@ -113,7 +113,152 @@ describe("Server", () => {
       });
     });
 
-    it("Errors with a status of 500 if there are any errors while reading flash cards", async () => {
+    it("Reads the requested number of flash cards when a GET request is sent to the flash card endpoint with count param", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question1",
+        answerHtml: "answer1",
+        tags: ["1"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question2",
+        answerHtml: "answer2",
+        tags: ["2"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        `${apiRoutes.getFlashCards}?count=1`,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toHaveLength(1);
+      expect(body[0]).toEqual({
+        id: 2,
+        question_html: "question2",
+        answer_html: "answer2",
+        tags: ["2"],
+      });
+    });
+
+    it("Reads flash cards in decending creation order", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question1",
+        answerHtml: "answer1",
+        tags: ["1"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question2",
+        answerHtml: "answer2",
+        tags: ["2"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        apiRoutes.getFlashCards,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toHaveLength(2);
+      expect(body[0].id).toBe(2);
+      expect(body[1].id).toBe(1);
+    });
+
+    it("Does not return more than the max flash cards if too many are requested", async () => {
+      for (let number = 0; number < 1000; number++) {
+        await databaseCommands.insertFlashCard({
+          questionHtml: `question${number}`,
+          answerHtml: `answer${number}`,
+          tags: [number],
+        });
+      }
+
+      const { statusCode, body } = await request(app).get(
+        `${apiRoutes.getFlashCards}?count=999999999999999`,
+      );
+
+      expect(statusCode).toBe(200);
+      expect(body).toHaveLength(50);
+    });
+
+    it("Errors with a 400 status if count is less than 1", async () => {
+      jest.spyOn(databaseCommands, "readFlashCards");
+
+      const { statusCode } = await request(app).get(
+        `${apiRoutes.getFlashCards}?count=0`,
+      );
+
+      expect(statusCode).toBe(400);
+      expect(databaseCommands.readFlashCards).not.toHaveBeenCalled();
+    });
+
+    it("Reads the of flash cards from the requested offset when a GET request is sent to the flash card endpoint with the offset param", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question1",
+        answerHtml: "answer1",
+        tags: ["1"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question2",
+        answerHtml: "answer2",
+        tags: ["2"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        `${apiRoutes.getFlashCards}?count=1&offset=1`,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toHaveLength(1);
+      expect(body[0]).toEqual({
+        id: 1,
+        question_html: "question1",
+        answer_html: "answer1",
+        tags: ["1"],
+      });
+    });
+
+    it("Reads the of flash cards which have matching tags when a GET request is sent to the flash card endpoint with the tags param", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question1",
+        answerHtml: "answer1",
+        tags: ["1", "2"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question2",
+        answerHtml: "answer2",
+        tags: ["2", "3"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question3",
+        answerHtml: "answer3",
+        tags: ["2", "3"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        `${apiRoutes.getFlashCards}?tags=2,3`,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toHaveLength(2);
+      expect(body).toEqual([
+        {
+          id: 3,
+          question_html: "question3",
+          answer_html: "answer3",
+          tags: ["2", "3"],
+        },
+        {
+          id: 2,
+          question_html: "question2",
+          answer_html: "answer2",
+          tags: ["2", "3"],
+        },
+      ]);
+    });
+
+    it("Throws an error if there are any issues while reading flash cards", async () => {
       jest.spyOn(databaseCommands, "readFlashCards").mockImplementation(() => {
         throw new Error("mock error to create a 500 status");
       });
