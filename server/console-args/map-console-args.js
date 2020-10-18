@@ -19,7 +19,7 @@ const mapArg = (argument) => {
 };
 
 const keyValueArg = (argument) => {
-  const match = argument.match(/^--(\w*)=(\w*)$/);
+  const match = argument.match(/^--(\w*)="(.*)"$/);
   if (!match) return null;
 
   const [_, key, value] = match;
