@@ -13,7 +13,16 @@ describe("Server", () => {
   });
 
   it("Returns the react app from the home route", async () => {
-    const { text, statusCode } = await request(app).get(apiRoutes.home);
+    const { text, statusCode } = await request(app).get("/");
+
+    expect(statusCode).toBe(200);
+    expect(text).toMatch("<title>React App</title>");
+  });
+
+  it("Returns the react app from any non defined routes to allow the react routes to take over", async () => {
+    const { text, statusCode } = await request(app).get(
+      "/this-is-not-a-real-route-and-will-never-be-used-in-the-app",
+    );
 
     expect(statusCode).toBe(200);
     expect(text).toMatch("<title>React App</title>");

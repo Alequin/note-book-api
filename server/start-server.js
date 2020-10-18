@@ -4,7 +4,7 @@ import { clientDirectory } from "./utils/directories.js";
 
 import {
   apiRoutes,
-  home,
+  getReactApp,
   health,
   storeFlashCard,
   getFlashCards,
@@ -20,12 +20,14 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${clientDirectory}`));
 
-app.get(apiRoutes.home, home);
 app.get(apiRoutes.health, health);
 
 app.post(apiRoutes.storeFlashCard, storeFlashCard);
 app.get(apiRoutes.getFlashCards, getFlashCards);
 app.delete(apiRoutes.deleteFlashCard, deleteFlashCard);
+
+// Catch all routes so react routes can also be used
+app.get("*", getReactApp);
 
 if (require.main === module) {
   app.listen(PORT, () => {
