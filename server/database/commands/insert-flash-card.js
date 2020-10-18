@@ -1,7 +1,4 @@
-import { query } from "../query";
+import { insertMultipleFlashCards } from "./insert-multiple-flash-cards";
 
-export const insertFlashCard = async ({ questionHtml, answerHtml, tags }) =>
-  query(
-    "INSERT INTO flash_cards (question_html, answer_html, tags) VALUES ($1, $2, $3)",
-    [questionHtml, answerHtml, tags],
-  );
+export const insertFlashCard = async (flashCard) =>
+  insertMultipleFlashCards([flashCard]);

@@ -164,13 +164,13 @@ describe("Server", () => {
     });
 
     it("Does not return more than the max flash cards if too many are requested", async () => {
-      for (let number = 0; number < 1000; number++) {
-        await databaseCommands.insertFlashCard({
-          questionHtml: `question${number}`,
-          answerHtml: `answer${number}`,
-          tags: [number],
-        });
-      }
+      await databaseCommands.insertMultipleFlashCards(
+        new Array(1000).fill(null).map((_, index) => ({
+          questionHtml: `question${index}`,
+          answerHtml: `answer${index}`,
+          tags: [index],
+        })),
+      );
 
       const { statusCode, body } = await request(app).get(
         `${apiRoutes.getFlashCards}?count=999999999999999`,
