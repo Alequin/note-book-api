@@ -8,6 +8,7 @@ import {
   health,
   storeFlashCard,
   getFlashCards,
+  deleteFlashCard,
 } from "./api-routes";
 
 const bodyParser = require("body-parser");
@@ -21,8 +22,10 @@ app.use(express.static(`${clientDirectory}`));
 
 app.get(apiRoutes.home, home);
 app.get(apiRoutes.health, health);
+
 app.post(apiRoutes.storeFlashCard, storeFlashCard);
 app.get(apiRoutes.getFlashCards, getFlashCards);
+app.delete(apiRoutes.deleteFlashCard, deleteFlashCard);
 
 if (require.main === module) {
   app.listen(PORT, () => {

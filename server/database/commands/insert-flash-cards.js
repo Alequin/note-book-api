@@ -14,3 +14,6 @@ const toInputList = ({ questionHtml, answerHtml, tags }) => [
   answerHtml,
   `{${tags.join(",")}}`,
 ];
+
+export const insertFlashCard = async (flashCard) =>
+  insertMultipleFlashCards([flashCard]);
