@@ -10,3 +10,7 @@ export const query = (query, args) =>
       error ? reject(error) : resolve(res.rows),
     );
   });
+
+process.on("exit", () => {
+  pool.end();
+});
