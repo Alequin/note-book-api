@@ -1,13 +1,21 @@
 import React from "react";
+import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { FlashCardList } from "./flash-card-list";
+import { FlashCard } from "./components/flash-card/flash-card";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }`;
 
 export const App = () => (
   <BrowserRouter>
     <main>
       <Switch>
-        <Route path="/" component={FlashCardList} exact />
+        <Route path="/" component={FlashCard} exact />
       </Switch>
+      <GlobalStyle />
     </main>
   </BrowserRouter>
 );
