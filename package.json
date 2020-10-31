@@ -30,7 +30,7 @@
   },
   "scripts": {
     "setup-local": "npm run build-database-config && npm run local-database-up && npm run db-up -- --dbEnv=development && npm run create-test-database",
-    "setup": "npm run build-database-config && npm run db-up --dbEnv=production",
+    "setup": "npm run build-database-config && npm run db-up -- --dbEnv=production",
     "local-database-up": "docker-compose  --file ./docker-compose/local-database-docker-compose.yml --project-name local-note-book-database up --detach",
     "local-database-down": "docker container stop $(docker container ls -q --filter name=local-note-book-database*)",
     "create-migration": "db-migrate --config  ./server/config/database-credentials.json --migrations-dir ./server/database/migrations create",
