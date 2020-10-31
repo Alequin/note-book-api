@@ -227,4 +227,59 @@ describe("Server", () => {
       );
     });
   });
+
+  describe("reading single random flash card", () => {
+    it("Reads a single random flash cards when a GET request is sent to the flash card endpoint", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        apiRoutes.getFlashCard,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body.id === 1 || body.id === 2).toBe(true);
+      expect(body).toHaveProperty("question_html", "question");
+    });
+
+    it("Reads a single random flash card with the selected tags when a GET request is sent to the flash card endpoint with the tags param", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question1",
+        answerHtml: "answer1",
+        tags: ["1", "2"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question2",
+        answerHtml: "answer2",
+        tags: ["2", "3"],
+      });
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question3",
+        answerHtml: "answer3",
+        tags: ["2", "3"],
+      });
+
+      const { statusCode, body } = await request(app).get(
+        `${apiRoutes.getFlashCard}?tags=1`,
+      );
+
+      expect(statusCode).toBe(200);
+
+      expect(body).toEqual({
+        id: 1,
+        question_html: "question1",
+        answer_html: "answer1",
+        tags: ["1", "2"],
+      });
+    });
+  });
 });

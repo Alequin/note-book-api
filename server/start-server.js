@@ -2,7 +2,13 @@ import express from "express";
 import { PORT } from "./config/port.js";
 import { clientDirectory } from "./utils/directories.js";
 
-import { apiRoutes, getReactApp, health, getFlashCards } from "./api-routes";
+import {
+  apiRoutes,
+  getReactApp,
+  health,
+  getFlashCard,
+  getFlashCards,
+} from "./api-routes";
 
 const bodyParser = require("body-parser");
 
@@ -15,6 +21,7 @@ app.use(express.static(`${clientDirectory}`));
 
 app.get(apiRoutes.health, health);
 
+app.get(apiRoutes.getFlashCard, getFlashCard);
 app.get(apiRoutes.getFlashCards, getFlashCards);
 
 // Catch all routes so react routes can also be used
