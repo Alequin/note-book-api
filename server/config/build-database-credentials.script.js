@@ -1,17 +1,17 @@
 import fs from "fs";
 import { ENVIRONMENTS_OPTIONS } from "./environments";
 import { newScript } from "../new-script";
+import { buildProductionDbConfig } from "./build-production-db-config";
 
 newScript({
   name: "build-database-credentials",
   script: () => {
     const fileName = `database-credentials.json`;
-    const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 
     const localConfig = {
+      database: null,
       user: "user",
       host: "localhost",
-      database: null,
       password: "password",
       port: 5433,
       driver: "pg",
@@ -26,16 +26,12 @@ newScript({
         ...localConfig,
         database: "test_note_book_db",
       },
-      [ENVIRONMENTS_OPTIONS.production]: {
-        user: DB_USERNAME,
-        host: DB_HOST,
-        database: DB_NAME,
-        password: DB_PASSWORD,
-        port: DB_PORT,
-        driver: "pg",
-      },
+      [ENVIRONMENTS_OPTIONS.production]: buildProductionDbConfig(),
     };
 
-    fs.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(config));
+    fs.writeFileSync(
+      `${__dirname}/${fileName}`,
+      JSON.stringify(config, null, 2),
+    );
   },
 });

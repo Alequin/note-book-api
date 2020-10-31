@@ -14,6 +14,7 @@
     "datauri": "^3.0.0",
     "db-migrate": "^0.11.11",
     "db-migrate-pg": "^1.2.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^26.5.3",
     "marked": "^1.2.0",
