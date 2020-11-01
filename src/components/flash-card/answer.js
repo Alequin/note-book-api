@@ -63,5 +63,9 @@ const ShowContentsText = styled.p`
 `;
 
 const HideContentsButton = styled.button`
-  width: 100%;
+  padding: 10px;
+  display: block;
+  border: 1px solid black;
+  background: transparent;
+  margin: 0 auto;
 `;
