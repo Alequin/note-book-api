@@ -16,10 +16,7 @@ describe("mapConsoleArguments", () => {
     });
   });
 
-  it("Throws an error if the argument format is bad", () => {
-    expect(() => mapConsoleArguments(["-exec"])).toThrow();
-    expect(() => mapConsoleArguments(["---exec"])).toThrow();
-    expect(() => mapConsoleArguments(["exec"])).toThrow();
-    expect(() => mapConsoleArguments(['--exec-"true"'])).toThrow();
+  it("ignores arguments which do not fit the expected format", () => {
+    expect(mapConsoleArguments(["/path/to/file"])).toEqual({});
   });
 });

@@ -1,22 +1,11 @@
 export const mapConsoleArguments = (args) =>
   args.reduce(
-    (newArgs, currentArgument) => ({
+    (newArgs, argument) => ({
       ...newArgs,
-      ...mapArg(currentArgument),
+      ...(keyValueArg(argument) || booleanArg(argument)),
     }),
     {},
   );
-
-const mapArg = (argument) => {
-  const mappedArg = keyValueArg(argument) || booleanArg(argument);
-
-  if (!mappedArg)
-    throw new Error(
-      `A given argument has a bad format: ${argument}. Should be in the format --key=value or --key for boolean args`,
-    );
-
-  return mappedArg;
-};
 
 const keyValueArg = (argument) => {
   const match = argument.match(/^--(\w*)=(.*)$/);
