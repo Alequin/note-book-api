@@ -9,21 +9,15 @@ const PRODUCTION_DB_ENV_FILE = path.resolve(
 );
 
 export const buildProductionDbConfig = () => {
-  if (!fs.existsSync(PRODUCTION_DB_ENV_FILE)) {
-    console.log(
-      `No production db env file available. The config file will be missing production config. Make the file ${PRODUCTION_DB_ENV_FILE} to include production env variables`,
-    );
-    return {};
-  }
-
-  dotenv.config({ path: PRODUCTION_DB_ENV_FILE });
+  if (fs.existsSync(PRODUCTION_DB_ENV_FILE))
+    dotenv.config({ path: PRODUCTION_DB_ENV_FILE });
   validateProductionConfigValues(process.env);
   return newConfig(process.env);
 };
 
 const validateProductionConfigValues = ({ DATABASE_URL }) => {
   if (!DATABASE_URL)
-    throw new Error(
+    console.error(
       `db environment variable is missing: ${JSON.stringify(
         mapValues({ DATABASE_URL }, (val) => val || "no value provided"),
         null,
