@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 export const ENVIRONMENTS_OPTIONS = {
   production: "production",
   development: "development",
