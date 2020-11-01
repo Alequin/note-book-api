@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Layout } from "../layout";
+import { Loading } from "./loading";
 import { FlashCardNavBar } from "./flash-card-nav-bar";
 import { FlashCardBody } from "./flash-card-body";
 
@@ -11,7 +12,7 @@ export const FlashCard = () => {
     isCachedCardAvailable,
   } = useFetchFlashCards();
 
-  if (loading) return <div>Loading!</div>;
+  if (loading) return <Loading />;
 
   return (
     <Layout
