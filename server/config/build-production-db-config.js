@@ -35,4 +35,7 @@ const validateProductionConfigValues = ({ DATABASE_URL }) => {
 const newConfig = ({ DATABASE_URL }) => ({
   connectionString: DATABASE_URL,
   driver: "pg",
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
