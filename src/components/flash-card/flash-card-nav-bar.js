@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-export const FlashCardNavBar = ({ onClickNextCard }) => {
+export const FlashCardNavBar = ({ onClickNextCard, isCachedCardAvailable }) => {
   return (
     <FlexBox>
-      <Button onClick={onClickNextCard}>Next Flash Card</Button>
+      <Button disabled={!isCachedCardAvailable} onClick={onClickNextCard}>
+        {isCachedCardAvailable
+          ? "Next Flash Card"
+          : "...preparing next flash card"}
+      </Button>
     </FlexBox>
   );
 };
