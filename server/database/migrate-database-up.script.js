@@ -4,5 +4,5 @@ import { newScript } from "../new-script";
 newScript({
   name: "migrate-database-up",
   expectedArgs: ["dbEnv"],
-  script: async (args) => dbMigrations({ env: args.dbEnv }).up(),
+  script: async (args) => dbMigrations(args).up(),
 });
