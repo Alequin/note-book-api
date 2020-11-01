@@ -44,6 +44,7 @@ const useDisplayAnswer = () => {
 };
 
 const Container = styled.section`
+  overflow: auto;
   ${({ shouldShowAnswer }) => {
     if (!shouldShowAnswer)
       return `
