@@ -5,6 +5,7 @@ import { storeFlashCard } from "./store-flash-card";
 import { getFlashCard } from "./get-flash-card";
 import { getFlashCards } from "./get-flash-cards";
 import { deleteFlashCard } from "./delete-flash-card";
+import { updateFlashCard } from "./update-flash-card";
 
 export {
   apiRoutes,
@@ -13,5 +14,6 @@ export {
   storeFlashCard,
   getFlashCard,
   getFlashCards,
+  updateFlashCard,
   deleteFlashCard,
 };

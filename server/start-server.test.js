@@ -343,6 +343,97 @@ describe("Server", () => {
     });
   });
 
+  describe("update a flash card", () => {
+    it("updates a new flash card when a PUT requests is sent to the flash card endpoint", async () => {
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+
+      const { statusCode, body } = await request(app)
+        .put(apiRoutes.updateFlashCard)
+        .send({
+          id: 1,
+          question: "updated question",
+          answer: "updated answer",
+          tags: ["c", "b", "a"],
+        })
+        .set("Accept", "application/json");
+
+      expect(statusCode).toBe(200);
+
+      const storedFlashCards = await databaseCommands.readFlashCards();
+      expect(storedFlashCards).toHaveLength(1);
+      expect(storedFlashCards[0]).toEqual({
+        id: 1,
+        question_html: "updated question",
+        answer_html: "updated answer",
+        tags: ["c", "b", "a"],
+      });
+
+      expect(body).toEqual({
+        id: 1,
+        question_html: "updated question",
+        answer_html: "updated answer",
+        tags: ["c", "b", "a"],
+      });
+    });
+
+    it("Errors with a status of 400 if invalid args are passed while updating flash cards", async () => {
+      const { statusCode } = await request(app)
+        .put(apiRoutes.storeFlashCard)
+        .send({})
+        .set("Accept", "application/json");
+
+      expect(statusCode).toBe(400);
+
+      const storedFlashCards = await databaseCommands.readFlashCards();
+      expect(storedFlashCards).toHaveLength(0);
+    });
+
+    it("Errors with a status of 500 if there are any errors while storing flash cards", async () => {
+      jest
+        .spyOn(databaseCommands, "updateFlashCardById")
+        .mockImplementation(() => {
+          throw new Error("mock error to create a 500 status");
+        });
+      jest.spyOn(console, "error").mockImplementation(() => {});
+
+      await databaseCommands.insertFlashCard({
+        questionHtml: "question",
+        answerHtml: "answer",
+        tags: ["1"],
+      });
+
+      const { statusCode } = await request(app)
+        .put(apiRoutes.storeFlashCard)
+        .send({
+          id: 1,
+          question: "updated question",
+          answer: "updated answer",
+          tags: ["c", "b", "a"],
+        })
+        .set("Accept", "application/json");
+
+      expect(statusCode).toBe(500);
+      expect(console.error).toHaveBeenCalledWith(
+        "Unable to store flash card / Error: mock error to create a 500 status",
+      );
+
+      const storedFlashCards = await databaseCommands.readFlashCards();
+      expect(storedFlashCards).toHaveLength(1);
+      expect(storedFlashCards).toEqual([
+        {
+          id: 1,
+          question_html: "question",
+          answer_html: "answer",
+          tags: ["1"],
+        },
+      ]);
+    });
+  });
+
   describe("delete flash card", () => {
     it("Deletes the given flash card", async () => {
       await databaseCommands.insertFlashCard({

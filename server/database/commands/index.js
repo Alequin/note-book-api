@@ -5,6 +5,7 @@ import {
 import { readFlashCards } from "./read-flash-cards";
 import { readRandomFlashCard } from "./read-random-flash-card";
 import { deleteFlashCardById } from "./delete-flash-card-by-id";
+import { updateFlashCardById } from "./update-flash-card-by-id";
 
 export const databaseCommands = {
   insertFlashCard,
@@ -12,4 +13,5 @@ export const databaseCommands = {
   deleteFlashCardById,
   readFlashCards,
   readRandomFlashCard,
+  updateFlashCardById,
 };

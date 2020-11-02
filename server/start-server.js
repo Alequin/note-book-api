@@ -9,6 +9,7 @@ import {
   getFlashCard,
   getFlashCards,
   storeFlashCard,
+  updateFlashCard,
   deleteFlashCard,
 } from "./api-routes";
 import { isProductionEnv } from "./config/environments.js";
@@ -31,6 +32,7 @@ const shouldEnableFlashCardEditing = !isProductionEnv();
 if (shouldEnableFlashCardEditing) {
   app.post(apiRoutes.storeFlashCard, storeFlashCard);
   app.delete(apiRoutes.deleteFlashCard, deleteFlashCard);
+  app.put(apiRoutes.updateFlashCard, updateFlashCard);
 }
 
 // Catch all routes so react routes can also be used
