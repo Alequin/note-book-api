@@ -8,7 +8,10 @@ import {
   health,
   getFlashCard,
   getFlashCards,
+  storeFlashCard,
+  deleteFlashCard,
 } from "./api-routes";
+import { isProductionEnv } from "./config/environments.js";
 
 const bodyParser = require("body-parser");
 
@@ -23,6 +26,12 @@ app.get(apiRoutes.health, health);
 
 app.get(apiRoutes.getFlashCard, getFlashCard);
 app.get(apiRoutes.getFlashCards, getFlashCards);
+
+const shouldEnableFlashCardEditing = !isProductionEnv();
+if (shouldEnableFlashCardEditing) {
+  app.post(apiRoutes.storeFlashCard, storeFlashCard);
+  app.delete(apiRoutes.deleteFlashCard, deleteFlashCard);
+}
 
 // Catch all routes so react routes can also be used
 app.get("*", getReactApp);
